@@ -1,0 +1,90 @@
+<web-app>
+	<welcome-file-list>
+		<welcome-file>Index.html</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>slogin</servlet-name>
+		<servlet-class>LoginServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>slogin</servlet-name>
+		<url-pattern>/log</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>sSignup</servlet-name>
+		<servlet-class>SignUpServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sSignup</servlet-name>
+		<url-pattern>/sign</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>swelcome</servlet-name>
+		<servlet-class>WelcomeServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>swelcome</servlet-name>
+		<url-pattern>/welcome</url-pattern>
+	</servlet-mapping>
+	
+	//------------------------------------------------
+	
+	
+	<servlet>
+		<servlet-name>cloth_servlet</servlet-name>
+		<servlet-class>ClothServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cloth_servlet</servlet-name>
+		<url-pattern>/cloth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>book_servlet</servlet-name>
+		<servlet-class>BookServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>book_servlet</servlet-name>
+		<url-pattern>/book</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>elec_servlet</servlet-name>
+		<servlet-class>ElectronicServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>elec_servlet</servlet-name>
+		<url-pattern>/elec</url-pattern>
+	</servlet-mapping>
+	//-------------------------------------------------
+	<servlet>
+		<servlet-name>option_selected_servlet</servlet-name>
+		<servlet-class>OptionSelectedServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>option_selected_servlet</servlet-name>
+		<url-pattern>/selectrd</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addserv</servlet-name>
+		<servlet-class>AddServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addserv</servlet-name>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>
