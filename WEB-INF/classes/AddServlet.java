@@ -1,26 +1,32 @@
 // shows all the products selected along with their prices
 
-
 import java.io.*;
+import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class AddServlet extends HttpServlet{
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException{
 		
 		HttpSession session = request.getSession();
 			
-		String username = session.getAttribute("user");
-		List<Long> Clothes = session.getAttribute("clothItemSelected");
-		List<Long> Books = session.getAttribute("bookItemSelected");
-		List<Long> Electronics = session.getAttribute("electronicItemSelected");
+		String username = (String)session.getAttribute("user");
+		
+		List<Long> Clothes = (ArrayList)session.getAttribute("clothItemSelected");
+		List<Long> Books = (ArrayList)session.getAttribute("bookItemSelected");
+		List<Long> Electronics = (ArrayList)session.getAttribute("electronicItemSelected");
+		
+		System.out.println(Clothes);
+		System.out.println(Books);
+		System.out.println(Electronics);
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		
+		float count=0;
 		// it takes all the session attributes and shows them as a list
 		
 		
@@ -30,6 +36,7 @@ public class AddServlet extends HttpServlet{
 		pw.print("</head>");
 		
 		pw.print("<body style='text-align:center;background:#DAF7A6;'>");
+		pw.print("<a href='logout' style='margin-left:70em;'>Logout</a>");
 		pw.print("<h1 style='background-color:black ; color:white;'>Cart holder's name : "+ username +" </h1>");
 		pw.print("<hr>");
 		pw.print("<hr>");
@@ -54,9 +61,11 @@ public class AddServlet extends HttpServlet{
 				pw.print("<td>"+ item1.getType()+"</td>");
 				pw.print("<td>"+ item1.getPrice()+"</td>");
 				pw.print("</tr>");
+				count += item1.getPrice();
 			}
 			
-		}
+		}//for
+		
 		for(Item item2 : WelcomeServlet.getAllItems()){
 			if(Books.contains(item2.getId())){
 				
@@ -66,9 +75,13 @@ public class AddServlet extends HttpServlet{
 				pw.print("<td>"+ item2.getType()+"</td>");
 				pw.print("<td>"+ item2.getPrice()+"</td>");
 				pw.print("</tr>");
+				count += item2.getPrice();
 			}
 			
 		}
+		
+		//for
+		
 		for(Item item3 : WelcomeServlet.getAllItems()){
 			if(Electronics.contains(item3.getId())){
 				
@@ -78,10 +91,20 @@ public class AddServlet extends HttpServlet{
 				pw.print("<td>"+ item3.getType()+"</td>");
 				pw.print("<td>"+ item3.getPrice()+"</td>");
 				pw.print("</tr>");
+				
+				count += item3.getPrice();
 			}
 			
-		}
+		}//for
+		
+		
 		pw.print("</table>");
+		
+		pw.print("<h3> Bill : Rs. "+count+"/- </h3>");
+		
+		//---------------------------------------------------------------------------------'
+		//---------------------------------------------------------------
+		
 		pw.print("</body>");
 		pw.print("</html>");
 		

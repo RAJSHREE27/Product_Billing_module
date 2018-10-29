@@ -1,6 +1,7 @@
 //input from option2.html comes to book servlet
 
 import java.io.*;
+import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,7 +13,7 @@ public class BookServlet extends HttpServlet{
 		
 		HttpSession session = request.getSession();
 			
-		String username = session.getAttribute("user");
+		String username = (String)session.getAttribute("user");
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		
@@ -53,8 +54,9 @@ public class BookServlet extends HttpServlet{
 					query1 = i< (selectedBookIDList.size() -1)? query1.append("?,"):query1.append("?");
 				}
 				query1.append(")");
+				String sttt = query1.toString();
 				
-				pstmt = con.prepareStatement(query1);
+				pstmt = con.prepareStatement(sttt);
 				
 				int i=1;
 				for(long LL : selectedBookIDList){
@@ -89,12 +91,13 @@ public class BookServlet extends HttpServlet{
 		pw.print("</head>");
 		
 		pw.print("<body style='text-align:center;background:#DAF7A6;'>");
-		pw.print("<h1 style="background-color:black ; color:white">Cart holder's name : "+ username +" </h1>");
+		pw.print("<a href='logout' style='margin-left:70em;'>Logout</a>");
+		pw.print("<h1 style='background-color:black ; color:white;'>Cart holder's name : "+ username +" </h1>");
 		pw.print("<hr>");
 		pw.print("<hr>");
 		pw.print("<h3>the selected Books by user : "+username+"</h3><br><br>");
 		
-		pw.print("<table border=\"1px\">");
+		pw.print("<table border='1px'>");
 		pw.print("<tr>");
 		pw.print("<th>Item Name </th>");
 		pw.print("<th>Item Price </th>");
@@ -108,16 +111,17 @@ public class BookServlet extends HttpServlet{
 			pw.print("</tr>");
 			
 		}
+		session.setAttribute( "bookItemSelected", selectedBookIDList);
+		
 		pw.print("</table>");
 	
 	//link for further step
 	
-		pw.println("<a href=\"welcome\">Shop More</a>");
+		pw.println("<a href='welcome'>Shop More</a>");
 		pw.println("==============================================================");
 		
-		session.setAttribute("bookItemSelected", selectedBookIDList);
 		
-		pw.println("<a href=\"add\">Done Shopping</a>");
+		pw.println("<a href='add'>Done Shopping</a>");
 		
 		pw.print("</body>");
 		pw.print("</html>");

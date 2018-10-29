@@ -10,6 +10,14 @@ public class OptionSelectedServlet extends HttpServlet{
 		
 		String selectedOption = request.getParameter("item_type");
 		
+		if(selectedOption == null){
+			
+			PrintWriter pw = response.getWriter();
+			pw.print("<h1>No options selected !</h1>");
+			
+			
+		}
+		
 		if("Clothes".equals(selectedOption)){
 			RequestDispatcher rd = request.getRequestDispatcher("Option1.html");
 			rd.forward(request,response);
@@ -25,3 +33,4 @@ public class OptionSelectedServlet extends HttpServlet{
 		}
 		
 	}
+}

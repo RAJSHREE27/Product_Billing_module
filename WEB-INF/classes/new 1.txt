@@ -1,0 +1,36 @@
+
+		java.util.Date now = new java.util.Date();
+		String dateVal = now.toString();
+		String bill = String.valueOf(dateVal);
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			
+			con = SisDbUtil.getConnection();
+			
+			String query= "insert into History(username, transaction_amount, transaction_time)values(?,?,?)";
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1,username);
+			pstmt.setString(2, bill);
+			pstmt.setString(3, dateVal);
+			
+			int val = pstmt.executeUpdate();
+			
+			
+			
+		}catch (Exception e) {
+			
+		}finally{
+			try {
+				SisDbUtil.closeConnection(con);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		pw.print("<a href=\"history\">Show transaction chart and history</a>");	*/
+		

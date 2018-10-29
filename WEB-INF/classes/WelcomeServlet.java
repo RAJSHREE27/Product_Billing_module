@@ -1,5 +1,6 @@
 import java.io.*;
 import java.sql.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -8,7 +9,7 @@ public class WelcomeServlet extends HttpServlet{
 	
 	private static List<Item> AllItemList = null;
 	
-	public static List<item> getAllItems(){
+	public static List<Item> getAllItems(){
 		//connection from database
 		
 		long objId;
@@ -19,7 +20,7 @@ public class WelcomeServlet extends HttpServlet{
 		
 		if(AllItemList == null){
 			
-			AllItemList = new ArrayList<item>();
+			AllItemList = new ArrayList<Item>();
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -62,7 +63,7 @@ public class WelcomeServlet extends HttpServlet{
 	}
 	//---------------------------------------------------------------------------------------------
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException{
 		
 		HttpSession session = request.getSession();
@@ -79,27 +80,30 @@ public class WelcomeServlet extends HttpServlet{
 		pw.print("<body style='text-align:center;background:#DAF7A6;'>");
 		
 		pw.print("<nav>");
-		pw.print("<a href='######' style='margin-left:80em;'>Logout</a>");
+		pw.print("<a href='logout' style='margin-left:70em;'>Logout</a>");
 		pw.print("</nav>");
 		
-		pw.print("<h1 style="background-color:black ; color:white">Welcome user : "+ userName +" </h1>");
+		pw.print("<h1 style='background-color:black ; color:white;'>Welcome user : "+ userName +" </h1>");
 		pw.print("<hr>");
 		
-		pw.print("<h3 style='font-size: 30px;'>Items You Wanna Look For : </h3>");
+		pw.print("<h3 style='font-size: 30px'>Items You Wanna Look For : </h3>");
 		pw.print("<hr>");
 		pw.print("<hr>");
 		
 		//-----------------------------------------------------------------------
 		
-		pw.print("<form action='selectrd' method='post'>");
-		pw.print("<input type='radio' value='Clothes' name='item_type'>Wear Onns");
-		pw.print("<input type='radio' value='Books'  name='item_type'>Books");
-		pw.print("<input type='radio' value='Electronics' name='item_type'>Electronics");
-		pw.print("<input value='choose' type='submit'>");
+		pw.println("<form action='selectrd' method='post'>");
+		pw.println("<input type='radio' value='Clothes' name='item_type'>Wear Onns");
+		pw.println("<input type='radio' value='Books'  name='item_type'>Books");
+		pw.println("<input type='radio' value='Electronics' name='item_type'>Electronics");
+		pw.println("<input value='choose' type='submit'>");
 		  
 		pw.print("</form>");
+		
+		pw.print("<a href=''>See Previous Transactions</a>");
 		
 		pw.print("</body>");
 		pw.print("</html>");
 		
 	}
+}

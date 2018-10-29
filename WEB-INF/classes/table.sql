@@ -33,6 +33,15 @@ insert into UserData values( 34, 'Tablet', 'electronics',9000.8);
 
 commit;
 
+create table History(
+	username varchar2(20),
+	transaction_amount varchar2(20),
+	transaction_time varchar2(20)
+);
+
+commit;
+
+
 
 
 //----------------------------------------

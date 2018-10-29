@@ -33,8 +33,6 @@
 		<url-pattern>/welcome</url-pattern>
 	</servlet-mapping>
 	
-	//------------------------------------------------
-	
 	
 	<servlet>
 		<servlet-name>cloth_servlet</servlet-name>
@@ -65,7 +63,7 @@
 		<servlet-name>elec_servlet</servlet-name>
 		<url-pattern>/elec</url-pattern>
 	</servlet-mapping>
-	//-------------------------------------------------
+	
 	<servlet>
 		<servlet-name>option_selected_servlet</servlet-name>
 		<servlet-class>OptionSelectedServlet</servlet-class>
@@ -84,6 +82,26 @@
 	<servlet-mapping>
 		<servlet-name>addserv</servlet-name>
 		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>histServ</servlet-name>
+		<servlet-class>HistoryServlet</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>histServ</servlet-name>
+		<url-pattern>/history</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LogOut</servlet-name>
+		<servlet-class>LogOutService</servlet-class>
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogOut</servlet-name>
+		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	
 	

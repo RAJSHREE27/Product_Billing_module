@@ -1,6 +1,7 @@
 //input from option3.html comes to Electronic servlet
 
 import java.io.*;
+import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,7 +13,7 @@ public class ElectronicServlet extends HttpServlet{
 		
 		HttpSession session = request.getSession();
 			
-		String username = session.getAttribute("user");
+		String username = (String)session.getAttribute("user");
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		
@@ -49,12 +50,13 @@ public class ElectronicServlet extends HttpServlet{
 				//String query= "select * from UserData where itemId in "+ selectedItemIDList ;
 				StringBuilder  query2 = new StringBuilder("select * from UserData where itemId in(");
 				
-				for(int i =0; i<selectedBookIDList.size() ; i++){
-					query2 = i< (selectedBookIDList.size() -1)? query2.append("?,"):query2.append("?");
+				for(int i =0; i<selectedElectronicIDList.size() ; i++){
+					query2 = i<(selectedElectronicIDList.size() -1)? query2.append("?,"):query2.append("?");
 				}
 				query2.append(")");
+				String sttt = query2.toString();
 				
-				pstmt = con.prepareStatement(query2);
+				pstmt = con.prepareStatement(sttt);
 				
 				int i=1;
 				for(long LLL : selectedElectronicIDList){
@@ -89,7 +91,8 @@ public class ElectronicServlet extends HttpServlet{
 		pw.print("</head>");
 		
 		pw.print("<body style='text-align:center;background:#DAF7A6;'>");
-		pw.print("<h1 style="background-color:black ; color:white">Cart holder's name : "+ username +" </h1>");
+		pw.print("<a href='logout' style='margin-left:70em;'>Logout</a>");
+		pw.print("<h1 style='background-color:black ; color:white;'>Cart holder's name : "+ username +" </h1>");
 		pw.print("<hr>");
 		pw.print("<hr>");
 		pw.print("<h3>the selected electronic products by user : "+username+"</h3><br><br>");
@@ -108,16 +111,17 @@ public class ElectronicServlet extends HttpServlet{
 			pw.print("</tr>");
 			
 		}
+		session.setAttribute( "electronicItemSelected", selectedElectronicIDList );
+		
 		pw.print("</table>");
 	
 	//link for further step
 	
-		pw.println("<a href=\"welcome\">Shop More</a>");
+		pw.println("<a href='welcome'>Shop More</a>");
 		pw.println("==============================================================");
 		
-		session.setAttribute("electronicItemSelected", selectedElectronicIDList);
 		
-		pw.println("<a href=\"add\">Done Shopping</a>");
+		pw.println("<a href='add'>Done Shopping</a>");
 		
 		pw.print("</body>");
 		pw.print("</html>");

@@ -7,18 +7,33 @@ import javax.servlet.http.*;
 
 public class SignUpServlet extends HttpServlet{
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException{
+		System.out.println("OK");
 		
+	}
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) 
+	throws ServletException, IOException{
+		System.out.println("OK");
 		
 		String username2 = request.getParameter("siName");
 		String password2 = request.getParameter("siPsswrd");
 		// username and password obtained
 		
+		if(username2==null || username2.trim().isEmpty()){
+			 response.sendRedirect("SignUp.html");
+			 return;
+		 }
+		 
+		 if(password2==null || password2.trim().isEmpty()){
+			 response.sendRedirect("SignUp.html");
+			 return;
+		 }
+		
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
 		
 		try{
 			
@@ -28,7 +43,7 @@ public class SignUpServlet extends HttpServlet{
 			pstmt.setString(1, username2);
 			pstmt.setString(2,password2);
 			
-			rs = pstmt.executeUpdate();
+		   int val = pstmt.executeUpdate();
 			
 			/* check if theres any null value or not ************/
 			
@@ -42,11 +57,13 @@ public class SignUpServlet extends HttpServlet{
 			}
 		}
 		//-----------------------------------------------------------------------------------------
+		
 			HttpSession session = request.getSession();
 			session.setAttribute("user", username2);
 			
 			String loc = "welcome";			//set in web.xml
-			response.sendRedirect(loc);
+			response.sendRedirect(loc);//new get request 
+		
 			
 	}
 	

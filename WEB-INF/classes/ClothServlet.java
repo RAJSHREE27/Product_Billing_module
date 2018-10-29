@@ -1,6 +1,8 @@
 //input from option1.html comes to cloth servlet
+//handle nullpointerexception as no items selected
 
 import java.io.*;
+import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,7 +14,7 @@ public class ClothServlet extends HttpServlet{
 		
 		HttpSession session = request.getSession();
 			
-		String username = session.getAttribute("user");
+		String username = (String)session.getAttribute("user");
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		
@@ -54,7 +56,8 @@ public class ClothServlet extends HttpServlet{
 				}
 				query.append(")");
 				
-				pstmt = con.prepareStatement(query);
+				String sttt = query.toString();
+				pstmt = con.prepareStatement(sttt);
 				
 				int i=1;
 				for(long L : selectedItemIDList){
@@ -89,9 +92,11 @@ public class ClothServlet extends HttpServlet{
 		pw.print("</head>");
 		
 		pw.print("<body style='text-align:center;background:#DAF7A6;'>");
-		pw.print("<h1 style="background-color:black ; color:white">Cart holder's name : "+ username +" </h1>");
+		pw.print("<a href='logout' style='margin-left:70em;'>Logout</a>");
+		pw.print("<h1 style='background-color:black ; color:white;'>Cart holder's name : "+ username +" </h1>");
 		pw.print("<hr>");
 		pw.print("<hr>");
+		
 		pw.print("<h3>the selected wear-onns by user : "+username+"</h3><br><br>");
 		
 		pw.print("<table border=\"1px\">");
@@ -108,16 +113,16 @@ public class ClothServlet extends HttpServlet{
 			pw.print("</tr>");
 			
 		}
+		session.setAttribute("clothItemSelected", selectedItemIDList);
 		pw.print("</table>");
 	
 	//link for further step
 	
-		pw.println("<a href=\"welcome\">Shop More</a>");
-		pw.println("==============================================================");
+		pw.println("<a href='welcome'>Shop More</a>");
+		pw.println("<br>==============================================================");
 		
-		session.setAttribute("clothItemSelected", selectedItemIDList);
 		
-		pw.println("<a href=\"add\">Done Shopping</a>");
+		pw.println("<a href='add'>Done Shopping</a>");
 		
 		pw.print("</body>");
 		pw.print("</html>");

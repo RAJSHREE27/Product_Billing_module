@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet{
 			}
 			
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally{
 			try {
 				SisDbUtil.closeConnection(con);
@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet{
 		if(successful == false){
 			
 			response.getWriter().print("<h1 style='color:red'>INVALID USERNAME OR PASSWORD</h1>");
-			ResquestDispatcher rd = request.getRequestDispatcher("Login.html");
+			RequestDispatcher rd = request.getRequestDispatcher("Login.html");
 			rd.include(request , response);
 			
 		}else if(successful == true){
